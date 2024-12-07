@@ -18,10 +18,7 @@ mongo = PyMongo(app)
 @app.route('/')
 def plants_list():
     """Display the plants list page."""
-
-    # TODO: Replace the following line with a database call to retrieve *all*
-    # plants from the Mongo database's `plants` collection.
-    plants_data = ''
+    plants_data = list(mongo.db.plants.find())
 
     context = {
         'plants': plants_data,
@@ -37,13 +34,11 @@ def about():
 def create():
     """Display the plant creation page & process data from the creation form."""
     if request.method == 'POST':
-        # TODO: Get the new plant's name, variety, photo, & date planted, and 
-        # store them in the object below.
         new_plant = {
-            'name': '',
-            'variety': '',
-            'photo_url': '',
-            'date_planted': ''
+            'name': request.form['name'],
+            'variety': request.form['variety'],
+            'photo_url': request.form['photo_uirl'],
+            'date_planted': request.form['date_planted']
         }
         # TODO: Make an `insert_one` database call to insert the object into the
         # database's `plants` collection, and get its inserted id. Pass the 
